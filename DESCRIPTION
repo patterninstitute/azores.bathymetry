@@ -1,0 +1,30 @@
+Package: azores.bathymetry
+Title: Azores Bathymetry
+Version: 0.0.1
+Authors@R: c(
+    person(given = "Ramiro", family = "Magno",
+      email = "rmagno@pattern.institute",
+      role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0001-5226-3441")),
+    person(given = "Rui", family = "Peres dos Santos",
+      email = "rpsantos@pattern.institute",
+      role = c("aut", "dtc"),
+      comment = c(ORCID = "0000-0002-5979-0700")),
+    person(given = "Rita", family = "Castilho",
+      email = "rcastil@ualg.pt", role = c("aut", "ths"), 
+      comment = c(ORCID = "0000-0003-0727-3688")),
+    person("CCMAR", role = c("cph", "fnd")),
+    person("Pattern Institute", role = c("cph", "fnd"))
+    )
+Description: Azores bathymetry, depth, elevation and depth slope.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    sf,
+    stars,
+    starsExtra,
+    terra
+Suggests: 
+    tidyterra
