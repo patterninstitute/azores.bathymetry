@@ -12,10 +12,5 @@
 #'
 #' @export
 azores_extent <- function() {
-  c(
-    xmin = -34,
-    xmax = -21,
-    ymin = 34,
-    ymax = 42
-  )
+  azores_extent_decimal()
 }

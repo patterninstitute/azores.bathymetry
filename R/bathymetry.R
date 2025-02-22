@@ -37,15 +37,16 @@ bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"
   bathymetry_path <- bathymetry_path()
   bathymetry <- stars::read_mdim(filename = bathymetry_path)
 
-  bbox <- sf::st_bbox(extent, crs = 4326)
-  bathymetry_cropped <- sf::st_crop(x = bathymetry, y = bbox)
+  bbox <- sf::st_bbox(convert_extent_to_utm(extent), crs = 32626)
 
-  bathymetry_cropped_utm <- stars::st_warp(
-    src      = bathymetry_cropped,
+  bathymetry_utm <- stars::st_warp(
+    src      = bathymetry,
     crs      = 32626,
     cellsize = resolution,
     method   = "near"
   )
+
+  bathymetry_cropped_utm <- sf::st_crop(x = bathymetry_utm, y = bbox)
 
   bathymetry_rast <- terra::rast(bathymetry_cropped_utm)
 

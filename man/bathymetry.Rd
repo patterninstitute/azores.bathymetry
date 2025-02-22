@@ -24,7 +24,7 @@ numeric vector of four values:
 }
 
 Defaults to large area centered at the Azores archipelago:
--34, -21, 34, 42.
+-34, -20, 33, 42.
 
 Note that indicating an extent beyond the default limits will not yield
 more data points.}
