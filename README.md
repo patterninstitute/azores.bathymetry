@@ -34,7 +34,7 @@ For the slope at sea with a resolution of 500 meters:
 ``` r
 bathymetry(var = "depth_slope", resolution = 500) |>
   tidyterra::autoplot()
-#> <SpatRaster> resampled to 500808 cells.
+#> <SpatRaster> resampled to 500682 cells.
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
