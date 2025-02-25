@@ -1,6 +1,6 @@
 Package: azores.bathymetry
 Title: Azores Bathymetry
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: c(
     person(given = "Ramiro", family = "Magno",
       email = "rmagno@pattern.institute",

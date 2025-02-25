@@ -76,9 +76,9 @@ bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"
   }
 
   if (identical(var, "depth_slope")) {
-    bathymetry_cropped_utm[bathymetry_cropped_utm > 0] <- NA
     depth <- -bathymetry_cropped_utm
     slope <- starsExtra::slope(depth)
+    slope[bathymetry_cropped_utm > 0] <- NA
     slope_rast <- terra::rast(slope)
     names(slope_rast) <- "Slope"
     terra::varnames(slope_rast) <- "Slope"
