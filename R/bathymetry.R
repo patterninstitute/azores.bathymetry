@@ -6,13 +6,6 @@
 #'
 #' @param var Either `"bathymetry"`, `"depth"`, `"elevation"` or
 #'   `"depth_slope"`.
-#' @param extent The extent of the region to be selected. This should be a
-#' numeric vector of four values:
-#'
-#' - `xmin`: most western longitude coordinate, in decimal degrees.
-#' - `xmax`: most eastern longitude coordinate, in decimal degrees.
-#' - `ymin`: most southern latitude coordinate, in decimal degrees.
-#' - `ymax`: most northern latitude coordinate, in decimal degrees.
 #'
 #' Defaults to large area centered at the Azores archipelago:
 #' `r azores_extent()`.
@@ -29,26 +22,19 @@
 #'
 #' @export
 bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"),
-                       extent = azores_extent(),
                        resolution = 1000) {
 
   var <- match.arg(var)
+  extent_laea <- azores_extent()
+  crs <- CAOP.RAA.2024::laea_azores_proj()
 
   bathymetry_path <- bathymetry_path()
-  bathymetry <- stars::read_mdim(filename = bathymetry_path)
-
-  bbox <- sf::st_bbox(convert_extent_to_utm(extent), crs = 32626)
-
-  bathymetry_utm <- stars::st_warp(
-    src      = bathymetry,
-    crs      = 32626,
-    cellsize = resolution,
-    method   = "near"
-  )
-
-  bathymetry_cropped_utm <- sf::st_crop(x = bathymetry_utm, y = bbox)
-
-  bathymetry_rast <- terra::rast(bathymetry_cropped_utm)
+  bathymetry <- terra::rast(x = bathymetry_path)
+  bathymetry2 <- stars::st_as_stars(bathymetry)
+  bathymetry3 <- stars::st_warp(bathymetry2, crs = crs)
+  bathymetry4 <- sf::st_crop(x = bathymetry3, y = extent_laea)
+  bathymetry5 <- stars::st_warp(bathymetry4, crs = crs, cellsize = resolution)
+  bathymetry_rast <- terra::rast(bathymetry5)
 
   if (identical(var, "bathymetry")) {
     names(bathymetry_rast) <- "bathymetry"
@@ -76,9 +62,9 @@ bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"
   }
 
   if (identical(var, "depth_slope")) {
-    depth <- -bathymetry_cropped_utm
+    depth <- -bathymetry5
     slope <- starsExtra::slope(depth)
-    slope[bathymetry_cropped_utm > 0] <- NA
+    slope[bathymetry5 > 0] <- NA
     slope_rast <- terra::rast(slope)
     names(slope_rast) <- "Slope"
     terra::varnames(slope_rast) <- "Slope"

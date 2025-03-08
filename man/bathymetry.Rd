@@ -6,25 +6,15 @@
 \usage{
 bathymetry(
   var = c("bathymetry", "depth", "elevation", "depth_slope"),
-  extent = azores_extent(),
   resolution = 1000
 )
 }
 \arguments{
 \item{var}{Either \code{"bathymetry"}, \code{"depth"}, \code{"elevation"} or
-\code{"depth_slope"}.}
-
-\item{extent}{The extent of the region to be selected. This should be a
-numeric vector of four values:
-\itemize{
-\item \code{xmin}: most western longitude coordinate, in decimal degrees.
-\item \code{xmax}: most eastern longitude coordinate, in decimal degrees.
-\item \code{ymin}: most southern latitude coordinate, in decimal degrees.
-\item \code{ymax}: most northern latitude coordinate, in decimal degrees.
-}
+\code{"depth_slope"}.
 
 Defaults to large area centered at the Azores archipelago:
--34, -20, 33, 42.
+-7.0158583 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}, -5.9068645 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}, 6.8639178 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}, 5.6098788 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}.
 
 Note that indicating an extent beyond the default limits will not yield
 more data points.}

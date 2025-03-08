@@ -9,13 +9,20 @@ azores_extent()
 \value{
 A numeric vector of four elements:
 \itemize{
-\item \code{xmin}: most western longitude coordinate
-\item \code{xmax}: most eastern longitude coordinate
-\item \code{ymin}: most southern latitude coordinate
-\item \code{ymax}: most northern latitude coordinate
+\item \code{xmin}: most western longitude coordinate, in meters.
+\item \code{xmax}: most eastern longitude coordinate, in meters.
+\item \code{ymin}: most southern latitude coordinate, in meters.
+\item \code{ymax}: most northern latitude coordinate, in meters.
 }
 }
 \description{
 \code{\link[=azores_extent]{azores_extent()}} returns the coordinates of the two vertices of the default
-bounding box used to defined the Azores region in paikea studies.
+bounding box used to defined the Azores region in paikea studies. This region
+is defined as the bounding box of the Exclusive Economic Zone (EEZ) for the
+Azores with an extra margin of 50 km in each direction.
+
+This extent is for a custom Lambert Azimuthal Equal-Area (LAEA) projection,
+centered on the Azores. See
+\link[CAOP.RAA.2024:laea_azores_proj]{laea_azores_proj()} for more details about
+this projection.
 }
