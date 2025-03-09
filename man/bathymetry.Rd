@@ -6,29 +6,25 @@
 \usage{
 bathymetry(
   var = c("bathymetry", "depth", "elevation", "depth_slope"),
-  resolution = 1000
+  resolution = NULL
 )
 }
 \arguments{
 \item{var}{Either \code{"bathymetry"}, \code{"depth"}, \code{"elevation"} or
-\code{"depth_slope"}.
-
-Defaults to large area centered at the Azores archipelago:
--7.0158583 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}, -5.9068645 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}, 6.8639178 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}, 5.6098788 × 10\if{html}{\out{<sup>}}5\if{html}{\out{</sup>}}.
-
-Note that indicating an extent beyond the default limits will not yield
-more data points.}
+\code{"depth_slope"}.}
 
 \item{resolution}{A grid cell size, in meters. Can be a single value,
 specifying the size for both the x-dimension (longitude) and y-dimension
-(latitude), or a vector of two values for an explicit specification.}
+(latitude), or a vector of two values for an explicit specification. By
+default the original resolution corresponds to 15 arcsecs.}
 }
 \value{
-A SpatRaster object cropped to the region selected with \code{extent},
-whose grid cells have a resolution as indicated in the \code{resolution} parameter
+A SpatRaster object.
 }
 \description{
 \code{\link[=bathymetry]{bathymetry()}} creates a SpatRaster object for the Azores region with either
 bathymetry, depth or elevation values (in meters). Use the \code{var} parameter to
-choose the variable of interest.
+choose the variable of interest. The area returned in for the Azores,
+covering the EEZ plus an extra margin of 50 km on each side, see
+\code{\link[=azores_extent]{azores_extent()}} for more details.
 }

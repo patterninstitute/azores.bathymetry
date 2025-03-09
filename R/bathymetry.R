@@ -2,27 +2,23 @@
 #'
 #' [bathymetry()] creates a SpatRaster object for the Azores region with either
 #' bathymetry, depth or elevation values (in meters). Use the `var` parameter to
-#' choose the variable of interest.
+#' choose the variable of interest. The area returned in for the Azores,
+#' covering the EEZ plus an extra margin of 50 km on each side, see
+#' [azores_extent()] for more details.
 #'
 #' @param var Either `"bathymetry"`, `"depth"`, `"elevation"` or
 #'   `"depth_slope"`.
 #'
-#' Defaults to large area centered at the Azores archipelago:
-#' `r azores_extent()`.
-#'
-#' Note that indicating an extent beyond the default limits will not yield
-#' more data points.
-#'
 #' @param resolution A grid cell size, in meters. Can be a single value,
 #'   specifying the size for both the x-dimension (longitude) and y-dimension
-#'   (latitude), or a vector of two values for an explicit specification.
+#'   (latitude), or a vector of two values for an explicit specification. By
+#'   default the original resolution corresponds to 15 arcsecs.
 #'
-#' @returns A SpatRaster object cropped to the region selected with `extent`,
-#' whose grid cells have a resolution as indicated in the `resolution` parameter
+#' @returns A SpatRaster object.
 #'
 #' @export
 bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"),
-                       resolution = 1000) {
+                       resolution = NULL) {
 
   var <- match.arg(var)
   extent_laea <- azores_extent()
@@ -33,7 +29,11 @@ bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"
   bathymetry2 <- stars::st_as_stars(bathymetry)
   bathymetry3 <- stars::st_warp(bathymetry2, crs = crs)
   bathymetry4 <- sf::st_crop(x = bathymetry3, y = extent_laea)
-  bathymetry5 <- stars::st_warp(bathymetry4, crs = crs, cellsize = resolution)
+  if (is.null(resolution)) {
+    bathymetry5 <- bathymetry4
+  } else {
+    bathymetry5 <- stars::st_warp(bathymetry4, crs = crs, cellsize = resolution)
+  }
   bathymetry_rast <- terra::rast(bathymetry5)
 
   if (identical(var, "bathymetry")) {
