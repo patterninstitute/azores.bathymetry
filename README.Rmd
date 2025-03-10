@@ -32,18 +32,19 @@ pak::pak("patterninstitute/azores.bathymetry")
 To generate a SpatRaster with depth values (meters) with a grid resolution of
 10000 meters:
 
-```{r fig.dpi=300}
+```{r fig.dpi=120}
 library(azores.bathymetry)
 
-bathymetry(var = "depth", resolution = 10000) |>
-  tidyterra::autoplot()
+(depth_res_10000 <- bathymetry(var = "depth", resolution = 10000))
+tidyterra::autoplot(depth_res_10000)
 ```
 
 For the slope at sea with a resolution of 500 meters:
 
-```{r fig.dpi=300}
-bathymetry(var = "depth_slope", resolution = 500) |>
-  tidyterra::autoplot()
+```{r fig.dpi=120}
+
+(depth_slope_res_500 <- bathymetry(var = "depth_slope", resolution = 500))
+tidyterra::autoplot(depth_slope_res_500)
 ```
 
 

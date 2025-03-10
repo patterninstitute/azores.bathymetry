@@ -18,23 +18,15 @@
 #'
 #' @export
 bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"),
-                       resolution = NULL) {
+                       resolution = 500) {
 
   var <- match.arg(var)
-  extent_laea <- azores_extent()
-  crs <- CAOP.RAA.2024::laea_azores_proj()
 
   bathymetry_path <- bathymetry_path()
   bathymetry <- terra::rast(x = bathymetry_path)
   bathymetry2 <- stars::st_as_stars(bathymetry)
-  bathymetry3 <- stars::st_warp(bathymetry2, crs = crs)
-  bathymetry4 <- sf::st_crop(x = bathymetry3, y = extent_laea)
-  if (is.null(resolution)) {
-    bathymetry5 <- bathymetry4
-  } else {
-    bathymetry5 <- stars::st_warp(bathymetry4, crs = crs, cellsize = resolution)
-  }
-  bathymetry_rast <- terra::rast(bathymetry5)
+  bathymetry3 <- stars::st_warp(bathymetry2, dest = azores_grid(resolution = resolution, type = "stars"))
+  bathymetry_rast <- terra::rast(bathymetry3)
 
   if (identical(var, "bathymetry")) {
     names(bathymetry_rast) <- "bathymetry"
@@ -62,9 +54,9 @@ bathymetry <- function(var = c("bathymetry", "depth", "elevation", "depth_slope"
   }
 
   if (identical(var, "depth_slope")) {
-    depth <- -bathymetry5
+    depth <- -bathymetry3
     slope <- starsExtra::slope(depth)
-    slope[bathymetry5 > 0] <- NA
+    slope[bathymetry3 > 0] <- NA
     slope_rast <- terra::rast(slope)
     names(slope_rast) <- "Slope"
     terra::varnames(slope_rast) <- "Slope"

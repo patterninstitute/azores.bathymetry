@@ -6,7 +6,7 @@
 \usage{
 bathymetry(
   var = c("bathymetry", "depth", "elevation", "depth_slope"),
-  resolution = NULL
+  resolution = 500
 )
 }
 \arguments{

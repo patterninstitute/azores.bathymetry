@@ -1,6 +1,6 @@
 Package: azores.bathymetry
 Title: Azores Bathymetry
-Version: 0.0.5
+Version: 0.0.6
 Authors@R: c(
     person(given = "Ramiro", family = "Magno",
       email = "rmagno@pattern.institute",
@@ -22,12 +22,12 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    CAOP.RAA.2024 (>= 0.0.3),
     sf,
     stars,
     starsExtra,
     terra
-Suggests: 
+Suggests:
+    CAOP.RAA.2024 (>= 0.0.3),
     tidyterra
 Remotes:  
     patterninstitute/CAOP.RAA.2024
